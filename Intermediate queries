@@ -70,7 +70,54 @@ WITH temp AS
     
 SELECT
 AVG(token_price) AS average_price
-FROM temp
+FROM temp;
+
+
+---
+--Finding the price of UNI in WETH using Joins
+WITH uni_price AS
+    (
+    SELECT
+        minute AS minute,
+        price AS price_of_uni
+    FROM prices.usd
+    WHERE blockchain = 'ethereum'
+    AND symbol = 'UNI'
+    AND minute > '2022-04-19 23:59'
+    AND minute < '2022-04-26 23:59'
+    ) ,
+    
+weth_price AS
+    (
+    SELECT
+        minute AS minute,
+        price AS price_of_weth
+    FROM prices.usd
+    WHERE blockchain = 'ethereum'
+    AND symbol = 'WETH'
+    AND minute > '2022-04-19 23:59'
+    AND minute < '2022-04-26 23:59'
+    ) ,
+
+data_table AS
+    (
+    SELECT
+        uni_price.minute AS minute,
+        uni_price.price_of_uni AS price_of_uni,
+        weth_price.price_of_weth AS price_of_weth
+    FROM uni_price
+    LEFT JOIN weth_price
+    ON uni_price.minute = weth_price.minute
+    )
+
+SELECT
+    minute,
+    (price_of_uni/price_of_weth) AS price
+FROM data_table 
+
+
+
+
 
 
 

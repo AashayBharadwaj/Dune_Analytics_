@@ -9,13 +9,38 @@
 
 
 --This query is used to display the time and the symbol,price and contract address of the token(filtered fir WBTC and WETH)
-SELECT 
-    minute,
-    symbol,
-    price,
-    contract_address
-FROM prices.usd
-WHERE minute >= '2022-04-01 00:00'
-AND minute <= '2022-04-30 23:59'
-AND symbol IN ('WBTC','WETH')
-order by minute
+--SELECT 
+--    minute,
+--    symbol,
+--    price,
+--   contract_address
+--FROM prices.usd
+--WHERE minute >= '2022-04-01 00:00'
+--AND minute <= '2022-04-30 23:59'
+--AND symbol IN ('WBTC','WETH')
+-order by minute
+
+
+This query is used to track the price data for UniSwap between Dec 1 2022 to Jan 5th 2023
+--SELECT
+ --   minute,
+--    symbol,
+--    price
+--FROM prices.usd
+--WHERE symbol = 'UNI'
+--AND minute >= '2022-12-01 00:00'
+--AND minute <= '2023-01-05 23:59'
+--ORDER BY price DESC;
+
+
+This query is used to track the price data for Matic(Polygon) between Dec 1 2022 to Jan 5th 2023
+--SELECT
+--    minute,
+--    symbol,
+--    price
+--FROM prices.usd
+--WHERE symbol = 'MATIC'
+--AND minute >= '2022-12-01 00:00'
+--AND minute <= '2023-01-05 23:59'
+--ORDER BY price DESC;
+

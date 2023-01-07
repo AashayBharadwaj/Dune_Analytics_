@@ -1,5 +1,5 @@
-This query is used to return the average price for Uniswap between 19th April 2022 and 26th April 2022.
-We used a temp table for this query
+--This query is used to return the average price for Uniswap between 19th April 2022 and 26th April 2022.
+--We used a temp table for this query
 
 WITH temp AS
     (
@@ -18,4 +18,38 @@ WITH temp AS
     
 SELECT
 AVG(price)
-FROM temp
+FROM temp;
+
+----------------
+--Using multiple Temp tables
+
+WITH temp AS
+    (
+    SELECT
+        minute,
+        price,
+        symbol,
+        contract_address
+    FROM prices.usd
+    WHERE blockchain = 'ethereum'
+    AND symbol = 'UNI'
+    AND minute > '2022-04-19 23:59'
+    AND minute < '2022-04-26 23:59'
+    ORDER BY minute DESC
+    ) ,
+    
+    more_than_8 AS
+    (
+    SELECT
+        price
+    FROM temp
+    WHERE price >= 8.00
+    )
+    
+    SELECT
+AVG(price)
+FROM more_than_8
+    
+
+
+

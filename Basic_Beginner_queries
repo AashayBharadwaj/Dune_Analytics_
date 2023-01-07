@@ -1,0 +1,21 @@
+
+--The first query is to simply explore the contents of the table
+--SELECT *
+--FROM dune_user_generated.april_2022_dex_token_prices_sample_1;
+
+--This query is to display 3 columns from the table
+--SELECT minute, symbol, price
+--FROM dune_user_generated.april_2022_dex_token_prices_sample_1;
+
+
+--This query is used to display the time and the symbol,price and contract address of the token(filtered fir WBTC and WETH)
+SELECT 
+    minute,
+    symbol,
+    price,
+    contract_address
+FROM prices.usd
+WHERE minute >= '2022-04-01 00:00'
+AND minute <= '2022-04-30 23:59'
+AND symbol IN ('WBTC','WETH')
+order by minute

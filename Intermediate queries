@@ -50,6 +50,29 @@ WITH temp AS
 AVG(price)
 FROM more_than_8
     
+---
+--With ALiases
+
+WITH temp AS
+    (
+    SELECT
+        minute AS time,
+        price AS token_price,
+        symbol AS token_symbol,
+        contract_address AS token_address
+    FROM prices.usd
+    WHERE blockchain = 'ethereum'
+    AND symbol = 'UNI'
+    AND minute > '2022-04-19 23:59'
+    AND minute < '2022-04-26 23:59'
+    ORDER BY minute DESC
+    )
+    
+SELECT
+AVG(token_price) AS average_price
+FROM temp
+
+
 
 
 
